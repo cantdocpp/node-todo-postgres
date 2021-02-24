@@ -14,11 +14,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const { pool } = require('./db/queries');
 
 app.get('/', async (req, res) => {
-  const data = await pool.query('SELECT * FROM tasks')
-  const taskData = data.rows
-  res.render('index', {
-    tasks: taskData
-  })
+  try {
+    const data = await pool.query('SELECT * FROM tasks')
+    const taskData = data.rows
+    res.render('index', {
+      tasks: taskData
+    })
+  } catch (err) {
+    throw err
+  }
 })
 
 app.get('/logs', async (req, res) => {

@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USER=root
+      - DB_NAME=todo
+      - DB_PASSWORD=123456
+      - DB_HOST=postgres
+    depends_on:
+      - db
+    networks:
+      - todo-network
+
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=root
+      - POSTGRES_DB=todo
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
