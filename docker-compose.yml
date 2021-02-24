@@ -2,15 +2,16 @@ version: "3.9"
 
 services:
   web:
-    build: .
+    image: node-postgres:1.0.1
     ports:
       - "3000:3000"
     environment:
       - DB_USER=root
       - DB_NAME=todo
       - DB_PASSWORD=123456
-      - DB_HOST=postgres
+      - DB_HOST=db
     depends_on:
+      - migration
       - db
     networks:
       - todo-network
@@ -23,6 +24,19 @@ services:
       - POSTGRES_PASSWORD=123456
       - POSTGRES_USER=root
       - POSTGRES_DB=todo
+    networks:
+      - todo-network
+
+  migration:
+    image: node-postgres:1.0.1
+    command: npm run migrate
+    environment:
+      - DB_USER=root
+      - DB_NAME=todo
+      - DB_PASSWORD=123456
+      - DB_HOST=db
+    depends_on:
+      - db
     networks:
       - todo-network
 
