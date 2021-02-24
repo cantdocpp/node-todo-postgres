@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   web:
-    image: node-postgres:1.0.1
+    image: cantdocpp/node-postgres:1.0.1
     ports:
       - "3000:3000"
     environment:
@@ -28,7 +28,7 @@ services:
       - todo-network
 
   migration:
-    image: node-postgres:1.0.1
+    image: cantdocpp/node-postgres:1.0.1
     command: npm run migrate
     environment:
       - DB_USER=root
