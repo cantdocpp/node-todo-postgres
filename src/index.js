@@ -27,6 +27,7 @@ app.get('/', async (req, res) => {
 
 app.get('/logs', async (req, res) => {
   const status = process.env.STATUS || 'development'
+  console.log(status)
   if (status === 'development') {
     res.render('logs')
   } else {
