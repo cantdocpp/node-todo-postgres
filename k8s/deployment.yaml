@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: todo
-        image: cantdocpp/node-postgres:1.0.1
+        image: cantdocpp/node-postgres:1.0.2
         ports:
           - containerPort: 3000
         env:
