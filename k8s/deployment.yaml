@@ -15,7 +15,10 @@ spec:
       - name: todo
         image: cantdocpp/node-postgres:1.0.1
         ports:
-        - containerPort: 3000
+          - containerPort: 3000
         env:
           - name: STATUS
             value: "production"
+        envFrom:
+          - configMapRef:
+              name: todo-config
