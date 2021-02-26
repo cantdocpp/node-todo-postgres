@@ -35,6 +35,14 @@ app.get('/logs', async (req, res) => {
   }
 })
 
+app.get('/config', async (req, res) => {
+  res.status(200).json({
+    'status': process.env.STATUS,
+    'version': process.env.VERSION,
+    'owner': process.env.OWNER
+  })
+})
+
 app.post('/task', async (req, res) => {
   const { task } = req.body
   try {
