@@ -19,9 +19,26 @@ spec:
         env:
           - name: STATUS
             value: "production"
-        envFrom:
-          - configMapRef:
-              name: todo-config
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: todo-secret
+                key: DB_PASSWORD
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: todo-secret
+                key: DB_USER
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: todo-secret
+                key: DB_NAME
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: todo-secret
+                key: DB_HOST
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -41,6 +58,22 @@ spec:
           image: postgres:13
           ports:
             - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_DB
 ---
 apiVersion: apps/v1
 kind: Deployment
