@@ -9,3 +9,27 @@ spec:
   - port: 3000
     targetPort: 3000
   type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-db
+spec:
+  selector:
+    app: todo-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer
+spec:
+  selector:
+    app: adminer
+  ports:
+  - port: 8082
+    targetPort: 8080
+  type: LoadBalancer
