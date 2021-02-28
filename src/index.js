@@ -13,6 +13,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 const { pool } = require('./db/queries');
 
+pool.query(`
+  CREATE TABLE IF NOT EXISTS tasks (
+      ID SERIAL PRIMARY KEY,
+      task_name varchar(45) NOT NULL
+  )
+  `, (err, result) => {
+    if (err) {
+        throw error
+    }
+    console.log(result)
+    console.log('finish migrating table')
+})
+
 app.get('/', async (req, res) => {
   try {
     const data = await pool.query('SELECT * FROM tasks')
